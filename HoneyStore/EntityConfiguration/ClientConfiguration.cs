@@ -16,7 +16,7 @@ namespace HoneyStore.EntityConfiguration
 
             builder.Property(c => c.Password)
               .IsRequired()
-              .HasMaxLength(30);
+              .HasMaxLength(64);
 
             builder.Property(c => c.FirstName)
               .IsRequired()
