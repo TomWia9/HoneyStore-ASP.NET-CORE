@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HoneyStore.Dto;
 using HoneyStore.Models;
 using HoneyStore.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace HoneyStore.Controllers
 {
@@ -16,9 +14,9 @@ namespace HoneyStore.Controllers
     {
         private readonly ClientsService clientsService;
 
-        public ClientsController(HoneyStoreContext context)
+        public ClientsController(HoneyStoreContext context, IConfiguration configuration)
         {
-            clientsService = new ClientsService(context);
+            clientsService = new ClientsService(context, configuration);
         }
 
         [HttpPost("Register")]
@@ -27,6 +25,13 @@ namespace HoneyStore.Controllers
             return clientsService.Register(register);
         }
 
+        [HttpPost("Login")]
+        public UserDto Login(LoginDto user)
+        {
+            return clientsService.Login(user);
+        }
+
+        [Authorize]
         [HttpGet("GetClients")]
         public ActionResult<IEnumerable<Client>> GetClients()
         {
