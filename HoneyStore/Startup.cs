@@ -1,5 +1,3 @@
-using System;
-using System.Text;
 using HoneyStore.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
 
 namespace HoneyStore
 {
@@ -49,6 +49,28 @@ namespace HoneyStore
                         Url = new Uri("https://choosealicense.com/licenses/mit/"),
                     }
                 });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                 new OpenApiSecurityScheme
+                 {
+                   Reference = new OpenApiReference
+                   {
+                     Type = ReferenceType.SecurityScheme,
+                     Id = "Bearer"
+                   }
+                  },
+                  new string[] { }
+                }
+                });
+
             });
 
             var key = Encoding.UTF8.GetBytes(Configuration.GetValue<string>("Security:SecretKey"));
@@ -85,8 +107,10 @@ namespace HoneyStore
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
+                c.DocumentTitle = "HoneyStore API";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "HoneyStore API");
                 c.RoutePrefix = string.Empty;
+
             });
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
