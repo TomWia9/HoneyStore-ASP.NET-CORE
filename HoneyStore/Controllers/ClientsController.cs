@@ -33,7 +33,7 @@ namespace HoneyStore.Controllers
 
         [Authorize]
         [HttpGet("GetClients")]
-        public ActionResult<IEnumerable<Client>> GetClients()
+        public ActionResult<IEnumerable<ClientDto>> GetClients()
         {
             return clientsService.GetClients();
         }

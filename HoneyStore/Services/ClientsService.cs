@@ -19,7 +19,6 @@ namespace HoneyStore.Services
             _configuration = configuration;
 
         }
-
         public IActionResult Register(RegisterDto register)
         {
             var client = new Client
@@ -40,7 +39,15 @@ namespace HoneyStore.Services
             return new ConflictResult();
         }
 
-        public ActionResult<IEnumerable<Client>> GetClients() => _context.Clients;
+        public ActionResult<IEnumerable<ClientDto>> GetClients()
+        {
+            return _context.Clients.Select(x => new ClientDto
+            {
+                Email = x.Email,
+                FirstName = x.FirstName,
+                LastName = x.LastName
+            }).ToList();
+        }
 
         public UserDto Login(LoginDto login)
         {
