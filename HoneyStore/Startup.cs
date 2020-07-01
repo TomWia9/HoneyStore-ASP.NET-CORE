@@ -23,7 +23,7 @@ namespace HoneyStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HoneyStoreContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("HoneyStoreConection")));
+               options.UseSqlServer(Configuration.GetConnectionString("HoneyStoreConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
