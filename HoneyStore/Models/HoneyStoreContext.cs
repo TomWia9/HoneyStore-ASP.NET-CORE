@@ -11,12 +11,14 @@ namespace HoneyStore.Models
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<HoneyItem> HoneysInTheCart { get; set; }
+        public DbSet<HoneyInTheWarehouse> HoneysInTheWarehouse { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new HoneyItemConfiguration());
+            modelBuilder.ApplyConfiguration(new HoneyInTheWarehouseConfiguration());
         }
     }
 }
