@@ -21,12 +21,23 @@ namespace HoneyStore.Services
         }
         public IActionResult Register(RegisterDto register)
         {
+            if(register == null || register.Address == null)
+            {
+                return new BadRequestResult();
+            }
+
             var client = new Client
             {
                 Email = register.Email,
                 FirstName = register.FirstName,
                 LastName = register.LastName,
-                Password = Hash.GetHash(register.Password)
+                Password = Hash.GetHash(register.Password),
+                Address = new Address()
+                {
+                    City = register.Address.City,
+                    StreetAndHomeNumber = register.Address.StreetAndHomeNumber,
+                    PostCode = register.Address.PostCode
+                }
             };
 
             if (!_context.Clients.Any(x => (x.Email == client.Email)))

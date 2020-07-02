@@ -10,6 +10,10 @@ namespace HoneyStore.EntityConfiguration
         {
             builder.HasKey(c => c.Id);
 
+            builder.HasOne(c => c.Address)
+                   .WithOne(c => c.Client)
+                   .HasForeignKey<Address>(c => c.ClientId);
+
             builder.Property(c => c.Email)
                .IsRequired()
                .HasMaxLength(50);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HoneyStore.Dto
+﻿namespace HoneyStore.Dto
 {
     public class RegisterDto
     {
@@ -11,6 +6,6 @@ namespace HoneyStore.Dto
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public AddressDto Address { get; set; }
     }
 }
