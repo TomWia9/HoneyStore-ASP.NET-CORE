@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200702114842_AddCartAndHoneyItemsTablesAndRelationsBetweenClientAndCartAndCartAndHoneyItem.cs" />
+    <Compile Remove="Migrations\20200702114842_AddCartAndHoneyItemsTablesAndRelationsBetweenClientAndCartAndCartAndHoneyItem.Designer.cs" />
+    <Compile Remove="Migrations\20200702120812_InitializeHoneysListInCartTable.cs" />
+    <Compile Remove="Migrations\20200702120812_InitializeHoneysListInCartTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">

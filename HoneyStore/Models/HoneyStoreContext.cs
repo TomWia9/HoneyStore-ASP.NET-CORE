@@ -10,11 +10,13 @@ namespace HoneyStore.Models
         }
 
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
+            modelBuilder.ApplyConfiguration(new HoneyItemConfiguration());
         }
     }
 }

@@ -37,7 +37,8 @@ namespace HoneyStore.Services
                     City = register.Address.City,
                     StreetAndHomeNumber = register.Address.StreetAndHomeNumber,
                     PostCode = register.Address.PostCode
-                }
+                },
+                Cart = new Cart(),
             };
 
             if (!_context.Clients.Any(x => (x.Email == client.Email)))
