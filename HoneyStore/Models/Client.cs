@@ -1,4 +1,6 @@
-﻿namespace HoneyStore.Models
+﻿using System.Collections.Generic;
+
+namespace HoneyStore.Models
 {
     public class Client
     {
@@ -8,7 +10,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address Address { get; set; }
-        public Cart Cart { get; set; }
+        public List<HoneyItem> HoneysInTheCart { get; set; }
 
     }
 }

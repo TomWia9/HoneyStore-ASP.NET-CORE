@@ -10,7 +10,7 @@ namespace HoneyStore.Models
         }
 
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        public DbSet<HoneyItem> HoneysInTheCart { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

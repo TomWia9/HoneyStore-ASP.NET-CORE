@@ -38,7 +38,7 @@ namespace HoneyStore.Services
                     StreetAndHomeNumber = register.Address.StreetAndHomeNumber,
                     PostCode = register.Address.PostCode
                 },
-                Cart = new Cart(),
+                HoneysInTheCart = new List<HoneyItem>(),
             };
 
             if (!_context.Clients.Any(x => (x.Email == client.Email)))
