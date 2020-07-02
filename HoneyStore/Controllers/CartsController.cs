@@ -27,5 +27,11 @@ namespace HoneyStore.Controllers
         {
             return cartsService.GetCart(clientId);
         }
+
+        [HttpDelete("RemoveItemFromCart/{honeyId}")]
+        public ActionResult RemoveItemFromCart(int honeyId)
+        {
+            return cartsService.RemoveItemFromCart(honeyId);
+        }
     }
 }
