@@ -1,4 +1,6 @@
-﻿namespace HoneyStore.Models
+﻿using System.Collections.Generic;
+
+namespace HoneyStore.Models
 {
     public class HoneyItem
     {
@@ -7,5 +9,6 @@
         public decimal Price { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }
+
     }
 }

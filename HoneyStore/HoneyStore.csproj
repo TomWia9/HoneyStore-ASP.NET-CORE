@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200702114842_AddCartAndHoneyItemsTablesAndRelationsBetweenClientAndCartAndCartAndHoneyItem.Designer.cs" />
     <Compile Remove="Migrations\20200702120812_InitializeHoneysListInCartTable.cs" />
     <Compile Remove="Migrations\20200702120812_InitializeHoneysListInCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20200703070931_AddOrdersTable.cs" />
+    <Compile Remove="Migrations\20200703070931_AddOrdersTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
