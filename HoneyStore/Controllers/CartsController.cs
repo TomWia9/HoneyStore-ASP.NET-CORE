@@ -17,7 +17,7 @@ namespace HoneyStore.Controllers
         }
 
         [HttpPost("AddToCart/{clientId}")]
-        public ActionResult AddToCart(HoneyItemDto honey, int clientId)
+        public ActionResult AddToCart(HoneyInTheCartDto honey, int clientId)
         {
             return cartsService.AddToCart(honey, clientId);
         }

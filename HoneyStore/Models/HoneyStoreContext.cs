@@ -13,6 +13,7 @@ namespace HoneyStore.Models
         public DbSet<HoneyItem> HoneysInTheCart { get; set; }
         public DbSet<HoneyInTheWarehouse> HoneysInTheWarehouse { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderedHoney> OrderedHoneys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

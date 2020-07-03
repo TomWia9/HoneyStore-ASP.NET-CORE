@@ -18,7 +18,7 @@ namespace HoneyStore.Controllers
         }
 
         [HttpPost("AddHoney")]
-        public ActionResult AddHoney(HoneyInTheWarehouseDto honey)
+        public ActionResult AddHoney(HoneyItemDto honey)
         {
             return warehouseService.AddHoney(honey);
         }
@@ -36,7 +36,7 @@ namespace HoneyStore.Controllers
         }
 
         [HttpGet("GetHoney/{honeyId}")]
-        public ActionResult<HoneyInTheWarehouseDto> GetHoney(int honeyId)
+        public ActionResult<HoneyItemDto> GetHoney(int honeyId)
         {
             return warehouseService.GetHoney(honeyId);
         }

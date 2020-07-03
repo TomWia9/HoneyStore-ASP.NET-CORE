@@ -1,19 +1,20 @@
-﻿using System;
+﻿using HoneyStore.Models;
+using System;
 using System.Collections.Generic;
 
-namespace HoneyStore.Models
+namespace HoneyStore.Dto
 {
-    public class Order
+    public class OrderDto
     {
-        public Order()
+        public OrderDto()
         {
-            OrderedHoneys = new List<OrderedHoney>();
+            OrderedHoneys = new List<HoneyItemDto>();
+          //  Date = DateTime.Now;
         }
-
         public int Id { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public List<OrderedHoney> OrderedHoneys { get; set; }
+       // public Client Client { get; set; }
+        public List<HoneyItemDto> OrderedHoneys { get; set; }
         public decimal TotalPrice { get; set; }
         public Delivery Delivery { get; set; }
         public Payment Payment { get; set; }

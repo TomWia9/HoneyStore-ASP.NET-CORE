@@ -15,7 +15,7 @@ namespace HoneyStore.Services
             _context = context;
         }
 
-        public ActionResult AddToCart(HoneyItemDto honey, int clientId)
+        public ActionResult AddToCart(HoneyInTheCartDto honey, int clientId)
         {
             if (honey == null || !_context.Clients.Where(x => x.Id == clientId).Any())
                 return new NotFoundResult();
@@ -52,11 +52,11 @@ namespace HoneyStore.Services
             }
 
             var honeysInTheCart = _context.HoneysInTheCart.Where(x => x.ClientId == clientId).ToList();
-            List<HoneyItemDto> honeys = new List<HoneyItemDto>();
+            List<HoneyInTheCartDto> honeys = new List<HoneyInTheCartDto>();
 
             foreach (var honey in honeysInTheCart)
             {
-                honeys.Add(new HoneyItemDto()
+                honeys.Add(new HoneyInTheCartDto()
                 {   Id = honey.Id,
                     Name = honey.Name,
                     Price = honey.Price

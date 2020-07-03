@@ -6,9 +6,9 @@ namespace HoneyStore.Dto
     {
         public CartDto()
         {
-            Honeys = new List<HoneyItemDto>();
+            Honeys = new List<HoneyInTheCartDto>();
         }
 
-        public List<HoneyItemDto> Honeys { get; set; }
+        public List<HoneyInTheCartDto> Honeys { get; set; }
     }
 }

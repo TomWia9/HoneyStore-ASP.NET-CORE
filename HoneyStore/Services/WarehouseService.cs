@@ -16,7 +16,7 @@ namespace HoneyStore.Services
             _context = context;
         }
 
-        public ActionResult AddHoney(HoneyInTheWarehouseDto honey)
+        public ActionResult AddHoney(HoneyItemDto honey)
         {
             if (honey == null)
                 return new BadRequestResult();
@@ -49,14 +49,14 @@ namespace HoneyStore.Services
             return _context.HoneysInTheWarehouse;
         }
 
-        public ActionResult<HoneyInTheWarehouseDto> GetHoney(int honeyId)
+        public ActionResult<HoneyItemDto> GetHoney(int honeyId)
         {
             var honey = _context.HoneysInTheWarehouse.Where(x => x.Id == honeyId).FirstOrDefault();
 
             if (honey == null)
                 return new NotFoundResult();
 
-            return new HoneyInTheWarehouseDto()
+            return new HoneyItemDto()
             {
                 Name = honey.Name,
                 Price = honey.Price,

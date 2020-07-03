@@ -20,6 +20,9 @@ namespace HoneyStore.EntityConfiguration
             builder.Property(o => o.Payment)
                 .IsRequired();
 
+            builder.Property(o => o.Status)
+                .IsRequired();
+
             builder.Property(o => o.Date)
                 .IsRequired();
         }
