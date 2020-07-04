@@ -89,6 +89,7 @@ namespace HoneyStore.Services
             return orders;
         }
 
+        //Amount in warehouse should decrese, have to implement this
         public ActionResult NewOrder(OrderDto order)
         {
             if (order == null)
