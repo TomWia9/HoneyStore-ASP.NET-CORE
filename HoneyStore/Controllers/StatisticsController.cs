@@ -1,4 +1,5 @@
-﻿using HoneyStore.Models;
+﻿using HoneyStore.Dto;
+using HoneyStore.Models;
 using HoneyStore.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -17,27 +18,17 @@ namespace HoneyStore.Controllers
         }
 
         [HttpGet("GetNumberOfOrdersData/{peroid}")]
-        public ActionResult<IEnumerable<int>> GetNumberOfOrdersData(int peroid)
+        public ActionResult<NumberOfOrdersDataDto> GetNumberOfOrdersData(int peroid)
         {
             return statisticsService.GetNumberOfOrdersData(peroid);
         }
 
-        [HttpGet("GetNumberOfOrdersDataLabels/{peroid}")]
-        public ActionResult<IEnumerable<string>> GetNumberOfOrdersDataLabels(int peroid)
+        [HttpGet("GetNumberOfSpecyficOrdersData/{peroid}")]
+        public ActionResult<NumberOfOrdersDataDto> GetNumberOfSpecyficOrdersData(int peroid)
         {
-            return statisticsService.GetNumberOfOrdersDataLabels(peroid);
+            return statisticsService.GetNumberOfSpecyficOrdersData(peroid);
         }
 
-        [HttpGet("GetNumberOfSpecyfiOrdersData/{peroid}")]
-        public ActionResult<IEnumerable<int>> GetNumberOfSpecyfiOrdersData(int peroid)
-        {
-            return statisticsService.GetNumberOfSpecyfiOrdersData(peroid);
-        }
 
-        [HttpGet("GetNumberOfSpecifyOrdersDataLabels")]
-        public ActionResult<IEnumerable<string>> GetNumberOfSpecifyOrdersDataLabels()
-        {
-            return statisticsService.GetNumberOfSpecifyOrdersDataLabels();
-        }
     }
 }

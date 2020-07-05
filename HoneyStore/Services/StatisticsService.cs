@@ -1,4 +1,5 @@
-﻿using HoneyStore.Models;
+﻿using HoneyStore.Dto;
+using HoneyStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace HoneyStore.Services
             _context = context;
         }
 
-        public ActionResult<IEnumerable<int>> GetNumberOfOrdersData(int peroid)
+        public ActionResult<NumberOfOrdersDataDto> GetNumberOfOrdersData(int peroid)
         {
             List<int> data = new List<int>();
             var orderedHoneys = _context.OrderedHoneys.ToList();
@@ -42,15 +43,16 @@ namespace HoneyStore.Services
 
             data.Add(number);
 
-            return data;
+            List<string> labels = _context.Orders.Where(x => x.Date.Date >= DateTime.Now.AddDays(-peroid).Date).OrderBy(x => x.Date).Select(x => x.Date.ToShortDateString()).Distinct().ToList();
+
+            return new NumberOfOrdersDataDto()
+            {
+                Data = data,
+                Labels = labels
+            };
         }
 
-        public ActionResult<IEnumerable<string>> GetNumberOfOrdersDataLabels(int peroid)
-        {
-            return _context.Orders.Where(x => x.Date.Date >= DateTime.Now.AddDays(-peroid).Date).OrderBy(x => x.Date).Select(x => x.Date.ToShortDateString()).Distinct().ToList();
-        }
-
-        public ActionResult<IEnumerable<int>> GetNumberOfSpecyfiOrdersData(int peroid)
+        public ActionResult<NumberOfOrdersDataDto> GetNumberOfSpecyficOrdersData(int peroid)
         {
             List<string> honeys = _context.HoneysInTheWarehouse.Select(x => x.Name).ToList();
             List<int> data = new List<int>();
@@ -75,13 +77,13 @@ namespace HoneyStore.Services
 
             }
 
-            return data;
-        }
+            List<string> labels = _context.HoneysInTheWarehouse.Select(x => x.Name).ToList();
 
-        public ActionResult<IEnumerable<string>> GetNumberOfSpecifyOrdersDataLabels()
-        {
-            return _context.HoneysInTheWarehouse.Select(x => x.Name).ToList();
+            return new NumberOfOrdersDataDto()
+            {
+                Data = data,
+                Labels = labels
+            };
         }
-
     }
 }
