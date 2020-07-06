@@ -44,13 +44,13 @@ namespace HoneyStore.Services
 
         }
 
-        public void RemoveAmountOfHoney(string honeyName, int amount)
+        public void UpdateAmountOfHoney(string honeyName, int amount)
         {
             var honey = _context.HoneysInTheWarehouse.FirstOrDefault(x => x.Name == honeyName);
             if (honey == null)
                 return;
 
-            honey.Amount -= amount;
+            honey.Amount += amount;
             _context.HoneysInTheWarehouse.Update(honey);
             _context.SaveChanges();
         }

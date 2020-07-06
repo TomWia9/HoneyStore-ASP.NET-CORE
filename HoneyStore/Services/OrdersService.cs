@@ -126,15 +126,10 @@ namespace HoneyStore.Services
             };
 
             _context.Orders.Add(newOrder);
-
-            //reduce warehouse
-            WarehouseService warehouseService = new WarehouseService(_context);
-            foreach (var honey in newOrder.OrderedHoneys)
-            {
-                warehouseService.RemoveAmountOfHoney(honey.Name, honey.Amount);
-            }
-
             _context.SaveChanges();
+
+            UpdateWarehouse(-1, newOrder.Id);
+
             return new OkResult();
         }
 
@@ -168,10 +163,11 @@ namespace HoneyStore.Services
             return new OkResult();
         }
 
-        //amount in warehouse should increase, have to implement
         public ActionResult CancelTheOrder(int orderId)
         {
             var order = _context.Orders.FirstOrDefault(x => x.Id == orderId);
+
+            UpdateWarehouse(1, orderId);
 
             if (order == null)
                 return new NotFoundResult();
@@ -182,6 +178,17 @@ namespace HoneyStore.Services
             _context.SaveChanges();
 
             return new OkResult();
+        }
+
+        private void UpdateWarehouse(sbyte sign, int orderId)
+        {
+            List<OrderedHoney> orderedHoneys = _context.OrderedHoneys.Where(x => x.OrderId == orderId).ToList();
+
+            WarehouseService warehouseService = new WarehouseService(_context);
+            foreach (var honey in orderedHoneys)
+            {
+                warehouseService.UpdateAmountOfHoney(honey.Name, sign * honey.Amount);
+            }
         }
     }
 }
