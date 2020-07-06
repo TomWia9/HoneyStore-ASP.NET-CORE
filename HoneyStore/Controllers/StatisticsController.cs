@@ -2,7 +2,6 @@
 using HoneyStore.Models;
 using HoneyStore.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace HoneyStore.Controllers
 {

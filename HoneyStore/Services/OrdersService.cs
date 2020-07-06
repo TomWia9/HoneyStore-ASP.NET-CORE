@@ -89,7 +89,6 @@ namespace HoneyStore.Services
             return orders;
         }
 
-        //Amount in warehouse should decrese, have to implement this
         public ActionResult NewOrder(OrderDto order)
         {
             if (order == null)
@@ -102,6 +101,11 @@ namespace HoneyStore.Services
 
             foreach (var honey in order.OrderedHoneys)
             {
+                //check if is in the warehouse
+                int amountInWarehouse = _context.HoneysInTheWarehouse.Where(x => x.Name == honey.Name).FirstOrDefault().Amount;
+                if (amountInWarehouse - honey.Amount < 0)
+                    return new ConflictResult();
+
                 orderedHoneys.Add(new OrderedHoney()
                 {
                     Name = honey.Name,
@@ -122,6 +126,14 @@ namespace HoneyStore.Services
             };
 
             _context.Orders.Add(newOrder);
+
+            //reduce warehouse
+            WarehouseService warehouseService = new WarehouseService(_context);
+            foreach (var honey in newOrder.OrderedHoneys)
+            {
+                warehouseService.RemoveAmountOfHoney(honey.Name, honey.Amount);
+            }
+
             _context.SaveChanges();
             return new OkResult();
         }
@@ -156,6 +168,7 @@ namespace HoneyStore.Services
             return new OkResult();
         }
 
+        //amount in warehouse should increase, have to implement
         public ActionResult CancelTheOrder(int orderId)
         {
             var order = _context.Orders.FirstOrDefault(x => x.Id == orderId);
