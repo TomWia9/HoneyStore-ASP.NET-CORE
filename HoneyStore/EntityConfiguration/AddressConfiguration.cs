@@ -8,6 +8,7 @@ namespace HoneyStore.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
+            builder.ToTable("Addresses");
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.City)

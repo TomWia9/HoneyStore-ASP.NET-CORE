@@ -31,11 +31,17 @@ namespace HoneyStore.Controllers
             return clientsService.Login(user);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpGet("GetClients")]
         public ActionResult<IEnumerable<ClientDto>> GetClients()
         {
             return clientsService.GetClients();
+        }
+
+        [HttpGet("GetClientAddress/{clientId}")]
+        public ActionResult<AddressDto> GetClientAddress(int clientId)
+        {
+            return clientsService.GetClientAddress(clientId);
         }
     }
 }

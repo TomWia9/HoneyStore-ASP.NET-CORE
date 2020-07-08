@@ -61,6 +61,21 @@ namespace HoneyStore.Services
             }).ToList();
         }
 
+        public ActionResult<AddressDto> GetClientAddress(int clientId)
+        {
+            if (!_context.Clients.Any(x => x.Id == clientId))
+                return new NotFoundResult();
+
+            var address = _context.Addresses.Where(x => x.ClientId == clientId).FirstOrDefault();
+
+            return new AddressDto()
+            {
+                City = address.City,
+                StreetAndHouseNumber = address.StreetAndHouseNumber,
+                PostCode = address.PostCode
+            };
+        }
+
         public UserDto Login(LoginDto login)
         {
             var hash = Hash.GetHash(login.Password);
