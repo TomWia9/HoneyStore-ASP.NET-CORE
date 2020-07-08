@@ -14,7 +14,7 @@ namespace HoneyStore.EntityConfiguration
                .IsRequired()
                .HasMaxLength(50);
 
-            builder.Property(a => a.StreetAndHomeNumber)
+            builder.Property(a => a.StreetAndHouseNumber)
               .IsRequired()
               .HasMaxLength(100);
 

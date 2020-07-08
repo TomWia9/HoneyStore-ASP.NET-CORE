@@ -19,6 +19,9 @@ namespace HoneyStore.EntityConfiguration
               .IsRequired()
               .HasMaxLength(10)
               .HasColumnType("decimal(18, 4)");
+
+            builder.Property(h => h.Amount)
+              .IsRequired();
         }
     }
 }

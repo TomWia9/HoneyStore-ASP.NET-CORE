@@ -20,7 +20,7 @@ namespace HoneyStore.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register(RegisterDto register)
+        public ActionResult Register(RegisterDto register)
         {
             return clientsService.Register(register);
         }

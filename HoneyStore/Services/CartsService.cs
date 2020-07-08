@@ -20,12 +20,30 @@ namespace HoneyStore.Services
             if (honey == null || !_context.Clients.Where(x => x.Id == clientId).Any())
                 return new NotFoundResult();
 
-            _context.HoneysInTheCart.Add(new HoneyItem()
+            var cart = _context.HoneysInTheCart.Where(x => x.ClientId == clientId).ToList();
+            bool isInTheCart = false;
+
+            foreach (var honeyInCart in cart)
             {
-                Name = honey.Name,
-                Price = honey.Price,
-                ClientId = clientId,
-            });
+                if(honey.Name == honeyInCart.Name)
+                {
+                    isInTheCart = true;
+                    honeyInCart.Amount++;
+                    _context.HoneysInTheCart.Update(honeyInCart);
+                }
+            }
+
+            if (!isInTheCart)
+            {
+                _context.HoneysInTheCart.Add(new HoneyItem()
+                {
+                    Name = honey.Name,
+                    Price = honey.Price,
+                    Amount = honey.Amount,
+                    ClientId = clientId
+                });
+            }
+
 
             _context.SaveChanges();
 
@@ -57,9 +75,10 @@ namespace HoneyStore.Services
             foreach (var honey in honeysInTheCart)
             {
                 honeys.Add(new HoneyInTheCartDto()
-                {   Id = honey.Id,
+                {   
                     Name = honey.Name,
-                    Price = honey.Price
+                    Price = honey.Price,
+                    Amount = honey.Amount
                 });
             }
 

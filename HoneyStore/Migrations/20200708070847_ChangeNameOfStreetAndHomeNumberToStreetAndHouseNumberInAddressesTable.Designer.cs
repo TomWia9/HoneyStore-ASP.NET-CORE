@@ -4,14 +4,16 @@ using HoneyStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HoneyStore.Migrations
 {
     [DbContext(typeof(HoneyStoreContext))]
-    partial class HoneyStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200708070847_ChangeNameOfStreetAndHomeNumberToStreetAndHouseNumberInAddressesTable")]
+    partial class ChangeNameOfStreetAndHomeNumberToStreetAndHouseNumberInAddressesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,9 +116,6 @@ namespace HoneyStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");

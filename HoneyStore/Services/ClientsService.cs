@@ -19,7 +19,7 @@ namespace HoneyStore.Services
             _configuration = configuration;
 
         }
-        public IActionResult Register(RegisterDto register)
+        public ActionResult Register(RegisterDto register)
         {
             if(register == null || register.Address == null)
             {
@@ -35,13 +35,13 @@ namespace HoneyStore.Services
                 Address = new Address()
                 {
                     City = register.Address.City,
-                    StreetAndHomeNumber = register.Address.StreetAndHomeNumber,
+                    StreetAndHouseNumber = register.Address.StreetAndHouseNumber,
                     PostCode = register.Address.PostCode
                 },
                 HoneysInTheCart = new List<HoneyItem>(),
             };
 
-            if (!_context.Clients.Any(x => (x.Email == client.Email)))
+            if (!_context.Clients.Any(x => x.Email == client.Email))
             {
                 _context.Clients.Add(client);
                 _context.SaveChanges();
@@ -76,6 +76,7 @@ namespace HoneyStore.Services
             {
                 return new UserDto
                 {
+                    Id = user.Id,
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
