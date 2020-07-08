@@ -48,7 +48,7 @@ namespace HoneyStore.Services
             return order;
         }
 
-        public ActionResult<IEnumerable<OrderDto>> GetOrders(Status status, bool all)
+        public ActionResult<IEnumerable<OrderDto>> GetOrders(bool all, Status status)
         {
             List<Order> _orders;
 
