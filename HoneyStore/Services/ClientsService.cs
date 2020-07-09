@@ -61,6 +61,21 @@ namespace HoneyStore.Services
             }).ToList();
         }
 
+        public ActionResult<ClientDto> GetClient(int clientId)
+        {
+            var client = _context.Clients.FirstOrDefault(x => x.Id == clientId);
+
+            if (client == null)
+                return new NotFoundResult();
+
+            return new ClientDto()
+            {
+                Email = client.Email,
+                FirstName = client.FirstName,
+                LastName = client.LastName
+            };
+        }
+
         public ActionResult<AddressDto> GetClientAddress(int clientId)
         {
             if (!_context.Clients.Any(x => x.Id == clientId))

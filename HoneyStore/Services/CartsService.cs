@@ -101,5 +101,10 @@ namespace HoneyStore.Services
                 Honeys = honeys
             };
         }
+
+        public ActionResult<bool> IsEmpty(int clientId)
+        {
+            return !_context.HoneysInTheCart.Any(x => x.ClientId == clientId);
+        }
     }
 }

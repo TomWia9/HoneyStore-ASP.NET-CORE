@@ -126,9 +126,12 @@ namespace HoneyStore.Services
             };
 
             _context.Orders.Add(newOrder);
+             var cart = _context.HoneysInTheCart.Where(x => x.ClientId == order.ClientId);
+            _context.HoneysInTheCart.RemoveRange(cart);
             _context.SaveChanges();
 
             UpdateWarehouse(-1, newOrder.Id);
+          
 
             return new OkResult();
         }

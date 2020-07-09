@@ -38,6 +38,12 @@ namespace HoneyStore.Controllers
             return clientsService.GetClients();
         }
 
+        [HttpGet("GetClient/{clientId}")]
+        public ActionResult<ClientDto> GetClient(int clientId)
+        {
+            return clientsService.GetClient(clientId);
+        }
+
         [HttpGet("GetClientAddress/{clientId}")]
         public ActionResult<AddressDto> GetClientAddress(int clientId)
         {

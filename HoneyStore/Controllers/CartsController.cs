@@ -39,5 +39,11 @@ namespace HoneyStore.Controllers
         {
             return cartsService.RemoveItemFromCart(honeyName, clientId);
         }
+
+        [HttpGet("IsEmpty/{clientId}")]
+        public ActionResult<bool> IsEmpty(int clientId)
+        {
+            return cartsService.IsEmpty(clientId);
+        }
     }
 }
