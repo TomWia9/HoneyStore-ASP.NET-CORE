@@ -50,14 +50,32 @@ namespace HoneyStore.Services
             return new OkResult();
         }
 
-        public ActionResult RemoveItemFromCart(string honeyName)
+        public ActionResult RemoveItemFromCart(string honeyName, int clientId)
         {
-            var honey = _context.HoneysInTheCart.FirstOrDefault(x => x.Name == honeyName);
+            var honey = _context.HoneysInTheCart.FirstOrDefault(x => x.Name == honeyName && x.ClientId == clientId);
 
             if(honey == null)
                 return new NotFoundResult();
             
             _context.HoneysInTheCart.Remove(honey);
+            _context.SaveChanges();
+            return new OkResult();
+        }
+
+        public ActionResult UpdateCart(HoneyInTheCartDto honey, int clientId)
+        {
+            if (!_context.Clients.Where(x => x.Id == clientId).Any())
+                return new NotFoundResult();
+
+            var honeyInCart = _context.HoneysInTheCart.Where(x => x.ClientId == clientId && x.Name == honey.Name).FirstOrDefault();
+
+            if (honeyInCart == null)
+                return new NotFoundResult();
+
+            honeyInCart.Amount = honey.Amount;
+
+            _context.HoneysInTheCart.Update(honeyInCart);
+
             _context.SaveChanges();
             return new OkResult();
         }

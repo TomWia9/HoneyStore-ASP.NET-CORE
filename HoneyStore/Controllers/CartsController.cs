@@ -28,10 +28,16 @@ namespace HoneyStore.Controllers
             return cartsService.GetCart(clientId);
         }
 
-        [HttpDelete("RemoveItemFromCart/{honeyName}")]
-        public ActionResult RemoveItemFromCart(string honeyName)
+        [HttpPatch("UpdateCart/{clientId}")]
+        public ActionResult UpdateCart(HoneyInTheCartDto honey, int clientId)
         {
-            return cartsService.RemoveItemFromCart(honeyName);
+            return cartsService.UpdateCart(honey, clientId);
+        }
+
+        [HttpDelete("RemoveItemFromCart/{honeyName}/{clientId}")]
+        public ActionResult RemoveItemFromCart(string honeyName, int clientId)
+        {
+            return cartsService.RemoveItemFromCart(honeyName, clientId);
         }
     }
 }
