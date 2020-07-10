@@ -29,6 +29,12 @@ namespace HoneyStore.Controllers
             return ordersService.GetOrders(all, status);
         }
 
+        [HttpGet("GetClientOrders/{clientId}/{status}")]
+        public ActionResult<IEnumerable<OrderDto>> GetClientOrders(int clientId, Status status)
+        {
+            return ordersService.GetClientOrders(clientId, status);
+        }
+
         [HttpPost("NewOrder")]
         public ActionResult NewOrder(OrderDto order)
         {

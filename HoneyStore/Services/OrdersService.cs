@@ -1,6 +1,7 @@
 ﻿using HoneyStore.Dto;
 using HoneyStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,6 +57,42 @@ namespace HoneyStore.Services
                 _orders = _context.Orders.ToList();
             else
                 _orders = _context.Orders.Where(x => x.Status == status).ToList();
+
+            List<OrderDto> orders = new List<OrderDto>();
+
+            foreach (var order in _orders)
+            {
+                List<HoneyItemDto> orderedHoneys = new List<HoneyItemDto>();
+
+                foreach (var honey in _context.OrderedHoneys.Where(x => x.OrderId == order.Id))
+                {
+                    orderedHoneys.Add(new HoneyItemDto()
+                    {
+                        Name = honey.Name,
+                        Price = honey.Price,
+                        Amount = honey.Amount
+                    });
+                }
+
+                orders.Add(new OrderDto()
+                {
+                    Id = order.Id,
+                    ClientId = order.ClientId,
+                    OrderedHoneys = orderedHoneys,
+                    TotalPrice = order.TotalPrice,
+                    Delivery = order.Delivery,
+                    Payment = order.Payment,
+                    Status = order.Status,
+                    Date = order.Date
+                });
+            }
+
+            return orders;
+        }
+
+        public ActionResult<IEnumerable<OrderDto>> GetClientOrders(int clientId, Status status)
+        {
+            List<Order> _orders =  _context.Orders.Where(x => x.ClientId == clientId && x.Status == status).ToList();
 
             List<OrderDto> orders = new List<OrderDto>();
 
