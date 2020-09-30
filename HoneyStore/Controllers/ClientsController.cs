@@ -49,5 +49,11 @@ namespace HoneyStore.Controllers
         {
             return clientsService.GetClientAddress(clientId);
         }
+
+        [HttpPut("ChangeClientAddress/{clientId}")]
+        public IActionResult ChangeClientAddress(int clientId, AddressDto address)
+        {
+            return clientsService.ChangeClientAddress(clientId, address);
+        }
     }
 }

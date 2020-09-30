@@ -91,6 +91,24 @@ namespace HoneyStore.Services
             };
         }
 
+        public IActionResult ChangeClientAddress(int clientId, AddressDto newAddress)
+        {
+            if (!_context.Clients.Any(x => x.Id == clientId))
+                return new NotFoundResult();
+
+            var address = _context.Addresses.Where(x => x.ClientId == clientId).FirstOrDefault();
+
+            address.City = newAddress.City;
+            address.StreetAndHouseNumber = newAddress.StreetAndHouseNumber;
+            address.PostCode = newAddress.PostCode;
+
+            _context.Addresses.Update(address);
+            _context.SaveChanges();
+
+            return new OkResult();
+
+        }
+
         public UserDto Login(LoginDto login)
         {
             var hash = Hash.GetHash(login.Password);
