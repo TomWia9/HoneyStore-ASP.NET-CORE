@@ -57,7 +57,7 @@ namespace HoneyStore.Controllers
         }
 
         [HttpPatch("ChangeClientPassword/{clientId}")]
-        public IActionResult ChangeClientPassword(int clientId, string newPassword)
+        public IActionResult ChangeClientPassword(int clientId, NewPasswordDto newPassword)
         {
             return clientsService.ChangeClientPassword(clientId, newPassword);
        

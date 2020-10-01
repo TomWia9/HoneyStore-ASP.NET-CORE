@@ -62,14 +62,18 @@ namespace HoneyStore.Services
             }).ToList();
         }
 
-        public IActionResult ChangeClientPassword(int clientId, string newPassword)
+        public IActionResult ChangeClientPassword(int clientId, NewPasswordDto newPassword)
         {
             try
             {
                 var client = _context.Clients.FirstOrDefault(x => x.Id == clientId);
                 if (client == null)
                     return new NotFoundResult();
-                client.Password = Hash.GetHash(newPassword);
+                if(client.Password != Hash.GetHash(newPassword.OldPassword))
+                {
+                    return new BadRequestResult();
+                }
+                client.Password = Hash.GetHash(newPassword.NewPassword);
                 _context.Clients.Update(client);
                 _context.SaveChanges();
                 return new OkResult();
