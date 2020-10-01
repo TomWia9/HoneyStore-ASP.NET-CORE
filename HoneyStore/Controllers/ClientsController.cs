@@ -55,5 +55,12 @@ namespace HoneyStore.Controllers
         {
             return clientsService.ChangeClientAddress(clientId, address);
         }
+
+        [HttpPatch("ChangeClientPassword/{clientId}")]
+        public IActionResult ChangeClientPassword(int clientId, string newPassword)
+        {
+            return clientsService.ChangeClientPassword(clientId, newPassword);
+       
+        }
     }
 }

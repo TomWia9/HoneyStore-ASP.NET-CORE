@@ -1,6 +1,7 @@
 ﻿using HoneyStore.Dto;
 using HoneyStore.Models;
 using HoneyStore.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -59,6 +60,27 @@ namespace HoneyStore.Services
                 FirstName = x.FirstName,
                 LastName = x.LastName
             }).ToList();
+        }
+
+        public IActionResult ChangeClientPassword(int clientId, string newPassword)
+        {
+            try
+            {
+                var client = _context.Clients.FirstOrDefault(x => x.Id == clientId);
+                if (client == null)
+                    return new NotFoundResult();
+                client.Password = Hash.GetHash(newPassword);
+                _context.Clients.Update(client);
+                _context.SaveChanges();
+                return new OkResult();
+            }
+            catch (System.Exception)
+            {
+
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+
+           
         }
 
         public ActionResult<ClientDto> GetClient(int clientId)
