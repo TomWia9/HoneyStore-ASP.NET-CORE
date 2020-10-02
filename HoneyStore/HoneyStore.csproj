@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200702120812_InitializeHoneysListInCartTable.Designer.cs" />
     <Compile Remove="Migrations\20200703070931_AddOrdersTable.cs" />
     <Compile Remove="Migrations\20200703070931_AddOrdersTable.Designer.cs" />
+    <Compile Remove="Migrations\20201002064537_test.cs" />
+    <Compile Remove="Migrations\20201002064537_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

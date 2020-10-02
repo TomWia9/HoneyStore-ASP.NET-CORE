@@ -13,7 +13,7 @@ namespace HoneyStore.Dto
         }
         public int Id { get; set; }
         public int ClientId { get; set; }
-       // public Client Client { get; set; }
+        public ClientDto Client { get; set; }
         public List<HoneyItemDto> OrderedHoneys { get; set; }
         public decimal TotalPrice { get; set; }
         public Delivery Delivery { get; set; }

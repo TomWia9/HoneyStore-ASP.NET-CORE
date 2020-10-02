@@ -38,13 +38,25 @@ namespace HoneyStore.Services
             {
                 Id = _order.Id,
                 ClientId = _order.ClientId,
+                Client = new ClientDto()
+                {
+                    Email = _context.Clients.FirstOrDefault(x => x.Id == _order.ClientId).Email,
+                    FirstName = _context.Clients.FirstOrDefault(x => x.Id == _order.ClientId).FirstName,
+                    LastName = _context.Clients.FirstOrDefault(x => x.Id == _order.ClientId).LastName,
+                    Address = new AddressDto()
+                    {
+                        City = _context.Addresses.FirstOrDefault(x => x.ClientId == _order.ClientId).City,
+                        StreetAndHouseNumber = _context.Addresses.FirstOrDefault(x => x.ClientId == _order.ClientId).StreetAndHouseNumber,
+                        PostCode = _context.Addresses.FirstOrDefault(x => x.ClientId == _order.ClientId).PostCode
+                    }
+                },
                 OrderedHoneys = orderedHoneys,
                 TotalPrice = _order.TotalPrice,
                 Delivery = _order.Delivery,
                 Payment = _order.Payment,
                 Status = _order.Status,
                 Date = _order.Date
-            }; 
+            };
 
             return order;
         }
@@ -78,6 +90,18 @@ namespace HoneyStore.Services
                 {
                     Id = order.Id,
                     ClientId = order.ClientId,
+                    Client = new ClientDto()
+                    {
+                        Email = _context.Clients.FirstOrDefault(x => x.Id == order.ClientId).Email,
+                        FirstName = _context.Clients.FirstOrDefault(x => x.Id == order.ClientId).FirstName,
+                        LastName = _context.Clients.FirstOrDefault(x => x.Id == order.ClientId).LastName,
+                        Address = new AddressDto()
+                        {
+                            City = _context.Addresses.FirstOrDefault(x => x.ClientId == order.ClientId).City,
+                            StreetAndHouseNumber = _context.Addresses.FirstOrDefault(x => x.ClientId == order.ClientId).StreetAndHouseNumber,
+                            PostCode = _context.Addresses.FirstOrDefault(x => x.ClientId == order.ClientId).PostCode
+                        }
+                    },
                     OrderedHoneys = orderedHoneys,
                     TotalPrice = order.TotalPrice,
                     Delivery = order.Delivery,
@@ -92,9 +116,22 @@ namespace HoneyStore.Services
 
         public ActionResult<IEnumerable<OrderDto>> GetClientOrders(int clientId, Status status)
         {
-            List<Order> _orders =  _context.Orders.Where(x => x.ClientId == clientId && x.Status == status).ToList();
+            List<Order> _orders = _context.Orders.Where(x => x.ClientId == clientId && x.Status == status).ToList();
 
             List<OrderDto> orders = new List<OrderDto>();
+
+            var client = new ClientDto()
+            {
+                Email = _context.Clients.FirstOrDefault(x => x.Id == clientId).Email,
+                FirstName = _context.Clients.FirstOrDefault(x => x.Id == clientId).FirstName,
+                LastName = _context.Clients.FirstOrDefault(x => x.Id == clientId).LastName,
+                Address = new AddressDto()
+                {
+                    City = _context.Addresses.FirstOrDefault(x => x.ClientId == clientId).City,
+                    StreetAndHouseNumber = _context.Addresses.FirstOrDefault(x => x.ClientId == clientId).StreetAndHouseNumber,
+                    PostCode = _context.Addresses.FirstOrDefault(x => x.ClientId == clientId).PostCode
+                }
+            };
 
             foreach (var order in _orders)
             {
@@ -114,6 +151,7 @@ namespace HoneyStore.Services
                 {
                     Id = order.Id,
                     ClientId = order.ClientId,
+                    Client = client,
                     OrderedHoneys = orderedHoneys,
                     TotalPrice = order.TotalPrice,
                     Delivery = order.Delivery,
@@ -163,12 +201,12 @@ namespace HoneyStore.Services
             };
 
             _context.Orders.Add(newOrder);
-             var cart = _context.HoneysInTheCart.Where(x => x.ClientId == order.ClientId);
+            var cart = _context.HoneysInTheCart.Where(x => x.ClientId == order.ClientId);
             _context.HoneysInTheCart.RemoveRange(cart);
             _context.SaveChanges();
 
             UpdateWarehouse(-1, newOrder.Id);
-          
+
 
             return new OkResult();
         }
