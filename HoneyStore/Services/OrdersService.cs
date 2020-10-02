@@ -219,6 +219,7 @@ namespace HoneyStore.Services
                 return new NotFoundResult();
 
             order.Status = Status.Shipped;
+            order.Date = DateTime.Now;
             _context.Orders.Update(order);
             _context.SaveChanges();
 
@@ -235,6 +236,7 @@ namespace HoneyStore.Services
                 return new NotFoundResult();
 
             order.Status = Status.Delivered;
+            order.Date = DateTime.Now;
             _context.Orders.Update(order);
             _context.SaveChanges();
 
