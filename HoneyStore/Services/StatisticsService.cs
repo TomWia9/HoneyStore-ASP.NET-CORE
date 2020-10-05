@@ -21,6 +21,10 @@ namespace HoneyStore.Services
             List<int> data = new List<int>();
             var orderedHoneys = _context.OrderedHoneys.ToList();
             var orders = _context.Orders.Where(x => x.Date.Date >= DateTime.Now.AddDays(-peroid).Date).OrderBy(x => x.Date.Date).ToList();
+            if(orderedHoneys.Count == 0 || orders.Count == 0)
+            {
+                return new NotFoundResult();
+            }
             DateTime date = orders.ElementAt(0).Date.Date;
             int number = 0;
 
