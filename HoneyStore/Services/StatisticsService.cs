@@ -43,12 +43,12 @@ namespace HoneyStore.Services
 
             data.Add(number);
 
-            List<string> labels = _context.Orders.Where(x => x.Date.Date >= DateTime.Now.AddDays(-peroid).Date).OrderBy(x => x.Date).Select(x => x.Date.ToShortDateString()).Distinct().ToList();
+            List<string> labels = _context.Orders.Where(x => x.Date.Date >= DateTime.Now.AddDays(-peroid).Date).OrderBy(x => x.Date).Select(x => x.Date.ToShortDateString()).ToList();
 
             return new NumberOfOrdersDataDto()
             {
                 Data = data,
-                Labels = labels
+                Labels = labels.Distinct()
             };
         }
 
