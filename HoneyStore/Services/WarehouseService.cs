@@ -32,6 +32,7 @@ namespace HoneyStore.Services
                 Name = honey.Name,
                 Price = honey.Price,
                 Amount = honey.Amount,
+                Description = honey.Description,
                 ImgPath = honey.ImgPath
             });
             _context.SaveChanges();
@@ -78,6 +79,7 @@ namespace HoneyStore.Services
                 Name = honey.Name,
                 Price = honey.Price,
                 Amount = honey.Amount,
+                Description = honey.Description,
                 ImgPath = honey.ImgPath
             };
         }

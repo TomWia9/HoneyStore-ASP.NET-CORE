@@ -20,6 +20,12 @@ namespace HoneyStore.EntityConfiguration
               .HasMaxLength(10)
               .HasColumnType("decimal(18, 4)");
 
+            builder.Property(h => h.Description)
+                .IsRequired();
+
+            builder.Property(h => h.ImgPath)
+                .IsRequired();
+
             builder.Property(h => h.Amount)
                .IsRequired();
         }        
